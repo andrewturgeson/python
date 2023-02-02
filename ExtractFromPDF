@@ -1,0 +1,55 @@
+import pdfreader
+import os
+import sys
+from pdfreader import PDFDocument, SimplePDFViewer
+#fd  = open("A150GB01_NormMasterDL.pdf", "rb")
+#fd  = open("source/z-A050LG01_2016-01.pdf", "rb")
+
+
+original_stdout = sys.stdout 
+
+ls = os.listdir("source")
+
+
+for y in ls:
+	with open("pipe output/" + y + ".txt",'w',encoding='utf-8') as f:
+		sys.stdout = f
+		fd  = open("source/" + y, "rb")
+		print('the file should be saved as" + "pipe output/" + y + ".txt")
+		doc = PDFDocument(fd)
+		print(y)
+		viewer = SimplePDFViewer(fd)
+	
+		for canvas in viewer:
+			page_images = canvas.images
+			page_forms = canvas.forms
+			page_text = canvas.text_content
+			page_inline_images = canvas.inline_images
+			page_strings = canvas.strings
+
+		viewer.navigate(1)
+		viewer.render()
+		#print(viewer.canvas.strings)
+		#print("length: " , len(viewer.canvas.strings))
+		#print("array[1000]: " + viewer.canvas.strings[1000])
+
+		A = viewer.canvas.strings
+	
+		for x in A:
+			print(x,end='')
+		print(" ")
+	
+		#for i in range(0,len(A),1):
+		#	if A[i] == "P" and A[i+1] == "i" and A[i+2] == "p" and A[i+3] == "i" and A[i+4] == "n" and A[i+5] == "g" and A[i+6] == " "and A[i+7] == "m" and A[i+8] == "a" and A[i+9] == "t" and A[i+10] == "e" and A[i+11] == "r" and A[i+12] == "i" and A[i+13] == "a" and A[i+14] == "l":
+		#		for j in range(i-20,i+25,1):	
+		#			print(A[j],end='')
+		#		print(" ") 
+	
+		#	if A[i] == "C" and A[i+1] == "S" and A[i+2] == "/" and A[i+3] == "P" and A[i+4] == "T" and A[i+5] == "F" and A[i+6] == "E": 
+		#		for j in range(i-20,i+25,1):
+		#			#print("j=",j)
+		#			print(A[j],end='')
+		#		print(" ") 
+
+
+	sys.stdout = original_stdout
