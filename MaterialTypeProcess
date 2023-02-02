@@ -1,0 +1,18 @@
+import re
+import os
+import sys
+
+ls = os.listdir("pipe output")
+#ls = "pipe output/A075CA01_2012-08.pdf.txt"
+
+for f in ls:
+	with open("pipe output/" + f,'r',encoding='utf-8') as file:
+		string=file.read()
+	print(f)
+	list = ["CS \(Carbon Steel\)","Vinyl Ester Resin-RTRP","A 269 Gr TP316\/316L","RFCS\/PTFE","A 312 Gr TP316\/316L - A 358 Gr 316\/316L-Cl.2","B 241 Alloy 6061-T6","B 622 N10675 \/ B 619 N10675","B 619 N10276","PP-R","Dual Laminate PVDF or FEP lined FRP - Vinyl Ester Resin","Conductive Fiberglass Reinforced Plastic \(FRP-el\)","Basalt Lined Carbon Steel","Hastelloy B3","Hastelloy C276","A 333 Grade 3 Impact Tested CS \(ITCS\)"]
+	for x in list:
+		y = ".*" + x + ".*"
+		z = re.search(x,string)
+		#print(z)
+		if z:
+			print(f + "," + x)
