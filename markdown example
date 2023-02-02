@@ -1,0 +1,8 @@
+from Markdown2docx import Markdown2docx
+project = Markdown2docx('tutorial-sample-content-stream-p1')
+project.eat_soup()
+project.write_html()  # optional
+print(type(project.styles()))
+for k, v in project.styles().items():
+    print(f'stylename: {k} = {v}')
+project.save()
