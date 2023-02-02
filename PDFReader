@@ -1,0 +1,33 @@
+import pdfreader
+import os
+import sys
+from pdfreader import PDFDocument, SimplePDFViewer
+
+
+ls = os.listdir("source")
+for y in ls:
+	b = "start" + y + "end"
+	print(b)
+	
+
+fd = open("source/A075CA01_2012-08.pdf", "rb")
+doc = PDFDocument(fd)
+viewer = SimplePDFViewer(fd)
+	
+for canvas in viewer:
+	page_images = canvas.images
+	page_forms = canvas.forms
+	page_text = canvas.text_content
+	page_inline_images = canvas.inline_images
+	page_strings = canvas.strings
+
+viewer.navigate(1)
+viewer.render()
+
+for x in viewer.canvas.strings:
+	print(x,end='')
+print("")
+
+#with open("tutorial-sample-content-stream-p1.txt", "w") as f:
+#	f.write(viewer.canvas.text_content)
+#print(viewer.canvas.strings)
