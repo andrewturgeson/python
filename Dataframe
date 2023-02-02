@@ -1,0 +1,23 @@
+import pandas as pd
+import time
+
+start = time.time()
+
+checkdf = pd.DataFrame(columns=['AKZ', 'No. FL locations', 'NaN'])
+
+for x in ["E2000", "E2001", "E2002", "E2003", "E2004", "E2005", "E2006", "E2007", "E2008", "E2009", "E2010", "E2011", "E2012", "E2013", "E2014", "E2015", "E2016", "E2017", "E2018", "E2019", "E2020", "E2021", "E2022", "E2023", "E2024", "E2025", "E2030", "E2032", "G_all", "V0973", "V0974", "V0980", "V0981", "V2200", "V2201", "V2202", "V2210", "V2211", "V2212", "V2213", "V2214", "V2215", "V2216", "V2217", "V2218", "V2219", "V2220", "V2221", "V2222", "V2223", "V2224", "V2225", "V2226", "V2227", "V2229", "V2230", "V2250", "V2251", "V2252"]:
+	name = "CHA Asset Classification\\Project Files\\Temp\\ExcelCombine_" + x + ".xlsx"
+	xlsx = pd.ExcelFile(name)
+	tempdf = pd.read_excel(xlsx, x + " FL")
+	A = len(tempdf)  
+	B = tempdf['Functional Location'].isna().sum()
+	checkdf.loc[len(checkdf.index)] = [ x, A, B]
+
+print(checkdf)
+checkdf.to_excel("check.xlsx",
+             sheet_name='Sheet_name_1')
+
+end = time.time()
+
+total_time = end - start
+print("str(total_time)")
